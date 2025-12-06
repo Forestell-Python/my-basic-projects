@@ -1,4 +1,4 @@
-#Очко
+#Blackjack parody
 import random
 
 wins = 0
@@ -10,15 +10,15 @@ earned = 0
 
 def get_bet():
     while True:
-        bet_input = input(f"Введите ставку (Ваш баланс {bal}): ")
+        bet_input = input(f"Enter your bet (Your balance {bal}): ")
         if bet_input.isdigit():
             bet = int(bet_input)
             if bet > bal:
-                print("Недостаточно денег!")
+                print("Not enough money!")
             else:
                 return bet
         else:
-            print("Пожалуйста, введите ЧИСЛО!")
+            print("Please, enter a NUMBER!")
 
 def blackjack():
     global wins, draws, loses, blackjacks, bal, earned
@@ -29,19 +29,19 @@ def blackjack():
     bet = get_bet()
     bal -= bet
     earned -= bet
-    print(f"Ваша ставка: {bet}. Ваш баланс : {bal}")
+    print(f"Your bet: {bet}. Your current balalnce : {bal}")
     
     while want == True:
         card = random.randint(2, 11)
-        choice = input("Вы хотите взять карту? ")
-        if choice.lower() == "да": 
+        choice = input("Do you want to take a card? ")
+        if choice.lower() == "yes": 
             score += card
-            print(f"Вы взяли: {card}. Ваши очки: {score}")
-        elif choice.lower() == "нет":
-            print(f"Ваши очки: {score}")
+            print(f"You took: {card}. Your score: {score}")
+        elif choice.lower() == "no":
+            print(f"Your score: {score}")
             want = False
         else:
-            print("Неправильное слово. Введите ''да'' или ''нет'' ")
+            print("Incorrect word. Please, enter 'yes' or 'no' ")
             continue
         
         
@@ -49,53 +49,53 @@ def blackjack():
         dcard = random.randint(2, 11)
         dscore += dcard
         
-    print(f"У диллера {dscore} очков")
+    print(f"Diller's score is {dscore}")
         
     if score == dscore:
-        print(f"Ничья! У вас по {score} очков")
+        print(f"Draw! Your score is {score}")
         draws += 1
         bal += bet
     elif score > dscore and score < 22 and score != 21:
-        print(f"Победа! У тебя {score} очков, а у диллера - {dscore}")
+        print(f"Win! Your score is {score}, and the diller's one is {dscore}")
         wins += 1
         bal += bet * 2
     elif score == 21:
-        print("BLACKJACK!!! Вы победили")
+        print("BLACKJACK!!! YOU WON")
         wins += 1
         blackjacks += 1
         bal += bet * 2.5
     elif score > 21 and dscore < 22:
-        print(f"Проигрыш! У вас перебор: {score}, а у диллера {dscore}")
+        print(f"Loss! Your score's over 21 {score}, diller's one is {dscore}")
         loses += 1
     elif score > 21 and dscore > 22:
-        print(f"Ничья! Перебор: {score} и {dscore}")
+        print(f"Draw! You both have an overscore {score} and {dscore}")
         draws += 1
         bal += bet
     elif score < 22 and dscore > 21:
-        print(f"Победа! У тебя {score} очков, а у диллера {dscore} очков")
+        print(f"Win! Your score is {score}, and diller's one is {dscore}")
         bal += bet * 2
     elif score < dscore and dscore < 22:
         loses += 1
-        print(f"Поражение! У вас {score} очков, а у диллера {dscore}!")
+        print(f"Loss! Your score is {score}, and diller's one is {dscore}!")
         
 def check_stats():
         earned = bal - 1000
-        print(f"баланс - {bal} денег")
-        print(f"{wins} побед")
-        print(f"{draws} ничьих")
-        print(f"{loses} проигрышей")
-        print(f"{blackjacks} блекджеков")
-        print(f"заработано {earned} денег")
+        print(f"balance - {bal}$")
+        print(f"{wins} wins")
+        print(f"{draws} draws")
+        print(f"{loses} loses")
+        print(f"{blackjacks} blackjacks")
+        print(f"earned {earned}$")
         
 while True:
     print("=" * 40)
     print("BLACKJACK 1.0")
     print("=" * 40)
-    ch = input("Нажмите 1 для начала игры, 2 для просмотра статистики: ")
+    ch = input("Enter '1' to start the game, '2' to look at your stats: ")
     if ch == "1":
         blackjack()
         print("")
     elif ch == "2":
         check_stats()
     else:
-        print("Неопознанный символ!")
+        print("Incorrect symbol!")
